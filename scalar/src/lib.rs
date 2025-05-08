@@ -10,11 +10,11 @@ pub fn pro(a: i8, b: i8) -> i8 {
  a*b
 }
 
-pub fn quo(a: i32, b: i32) -> X {
+pub fn quo(a: i32, b: i32) -> i32 {
     a/b
 }
 
-pub fn rem(a: f32, b: f32) -> X {
+pub fn rem(a: f32, b: f32) -> f32 {
     a%b
 }
 
