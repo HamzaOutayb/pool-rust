@@ -6,7 +6,7 @@ pub fn at_index(slice: &[String], index: usize) -> &str {
     if let Some(v) = slice.get(index) {
         v
     } else {
-        "err"
+        panic!()
     }
 }
 
