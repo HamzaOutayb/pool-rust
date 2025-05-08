@@ -5,9 +5,9 @@ pub fn id(student: &Student) -> u32 {
 }
 
 pub fn first_name(student: &Student) -> &str {
-    student.1
+    &student.1
 }
 
 pub fn last_name(student: &Student) -> &str {
-    student.2
+    &student.2
 }
