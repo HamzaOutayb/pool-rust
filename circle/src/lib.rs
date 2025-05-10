@@ -1,9 +1,10 @@
+use std::f64::consts::PI;
+
 #[derive(Debug, Clone, Copy)]
 pub struct Circle {
 	pub center: Point,
 	pub radius: f64,
 }
-
 impl Circle {
     pub fn new(point1: f64, point2: f64, radius: f64) -> Circle {
         Circle {
@@ -13,12 +14,12 @@ impl Circle {
     }
     //-> returns the diameter of the circle.
     pub fn diameter(self) -> f64 {
-        2.0*self.radius
+        self.radius*2.0
     } 
 
     //-> returns the area of the circle.
     pub fn area(self) -> f64 {
-        3.14159*self.diameter()
+        PI*self.radius*self.radius
     } 
 
     //-> returns if two circles intersect.
@@ -37,3 +38,4 @@ impl Point {
         ((self.0 - other.0).powf(2.0) + (self.1 - other.1).powf(2.0)).sqrt()
     }
 }
+
