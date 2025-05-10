@@ -24,7 +24,10 @@ impl Circle {
 
     //-> returns if two circles intersect.
     pub fn intersect(self, other: Self) -> bool {
-        self.diameter()+other.diameter() == self.center.distance(other.center)
+        if self.radius*self.radius + other.radius*other.radius == self.center.distance(other.center) {
+            return true
+        }
+        false
     } 
 
 }
