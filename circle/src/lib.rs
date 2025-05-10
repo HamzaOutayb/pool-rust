@@ -23,12 +23,14 @@ impl Circle {
     } 
 
     //-> returns if two circles intersect.
-    pub fn intersect(self, other: Self) -> bool {
-        if self.radius*self.radius + other.radius*other.radius == ((self.center.0 - other.center.0).powf(2.0) + (self.center.1 - other.center.1).powf(2.0)).sqrt() {
-            return true
+        pub fn intersect(self, circle2: Circle) -> bool {
+            let rigth = self.radius + circle2.radius;
+            let d = self.center.distance(circle2.center);
+            if rigth >= d  {
+                return true;
+            }
+            false
         }
-        false
-    } 
 
 }
 
