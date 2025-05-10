@@ -1,0 +1,1 @@
+/home/houtaib/Desktop/piscine-rust/string_literals/target/debug/string_literals: /home/houtaib/Desktop/piscine-rust/string_literals/src/lib.rs /home/houtaib/Desktop/piscine-rust/string_literals/src/main.rs

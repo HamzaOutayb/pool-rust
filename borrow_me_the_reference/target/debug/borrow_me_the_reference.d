@@ -1,0 +1,1 @@
+/home/houtaib/Desktop/piscine-rust/borrow_me_the_reference/target/debug/borrow_me_the_reference: /home/houtaib/Desktop/piscine-rust/borrow_me_the_reference/src/lib.rs /home/houtaib/Desktop/piscine-rust/borrow_me_the_reference/src/main.rs
