@@ -1,7 +1,0 @@
-[package]
-name = "thirtytwo_tens"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-arrays = "0.2.0"
