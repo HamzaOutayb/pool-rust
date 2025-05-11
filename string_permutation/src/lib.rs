@@ -17,5 +17,11 @@ pub fn is_permutation(s1: &str, s2: &str) -> bool {
         }
     }
 
+    for (key,_) in &h2 {
+        if h1.get(&key) != h2.get(&key) {
+            return false
+        }
+    }
+
     true
 }
