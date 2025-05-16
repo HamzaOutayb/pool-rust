@@ -9,12 +9,12 @@ pub fn area_fit(
     times: usize,
     (a, b): (usize, usize),
 ) -> bool {
-   let rec_area = area_volumes::rectangle_area(x,y) as f64;
+   let rec_area = areas_volumes::rectangle_area(x,y) as f64;
    let area = match kind {
-       GeometricalShapes::Circle =>{circle_area(a)}
-       GeometricalShapes::Rectangle =>{rectangle_area(a, b) as f64}
-    GeometricalShapes::Square =>{square_area(a) as f64}
-    GeometricalShapes::Triangle =>{triangle_area(a, b)}
+       GeometricalShapes::Circle =>{areas_volumes::circle_area(a)}
+       GeometricalShapes::Rectangle =>{areas_volumes::rectangle_area(a, b) as f64}
+    GeometricalShapes::Square =>{areas_volumes::square_area(a) as f64}
+    GeometricalShapes::Triangle =>{areas_volumes::triangle_area(a, b)}
    };
    area*times as f64 <= rec_area
 }
@@ -26,11 +26,11 @@ pub fn volume_fit(
     (a, b, c): (usize, usize, usize),
 ) -> bool {
    let volume:f64 = match kind {
-       GeometricalVolumes::Cone =>{cone_volume(a, b)}
-       GeometricalVolumes::Cube =>{cube_volume(a) as f64}
-       GeometricalVolumes::Parallelepiped => {parallelepiped_volume(a, b, c) as f64}
-       GeometricalVolumes::Sphere =>{sphere_volume(a)}
-    GeometricalVolumes::TriangularPyramid =>{triangular_pyramid_volume(a as f64, b)}
+       GeometricalVolumes::Cone =>{areas_volumes::cone_volume(a, b)}
+       GeometricalVolumes::Cube =>{areas_volumes::cube_volume(a) as f64}
+       GeometricalVolumes::Parallelepiped => {areas_volumes::parallelepiped_volume(a, b, c) as f64}
+       GeometricalVolumes::Sphere =>{areas_volumes::sphere_volume(a)}
+    GeometricalVolumes::TriangularPyramid =>{areas_volumes::triangular_pyramid_volume(a as f64, b)}
    };
    let box_volume:f64 = (x*y*z) as f64;
     volume*times as f64 <= box_volume
