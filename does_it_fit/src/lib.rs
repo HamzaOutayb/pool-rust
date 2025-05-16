@@ -1,6 +1,7 @@
 mod areas_volumes;
 use areas_volumes::*;
-use areas_volumes::{GeometricalShapes, GeometricalVolumes};
+type GeometricalShapes = areas_volumes::GeometricalShapes;
+type GeometricalVolumes = areas_volumes::GeometricalVolumes;
 
 pub fn area_fit(
     (x, y): (usize, usize),
@@ -32,8 +33,5 @@ pub fn volume_fit(
     GeometricalVolumes::Parallelepiped => {parallelepiped_volume(a, b, c) as f64}
    };
    let box_volume:f64 = (x*y*z) as f64;
-    match kind {
-       GeometricalVolumes::Cone => return volume*times as f64 <= box_volume && a <= z,
-       _=> return volume*times as f64 <= box_volume,
-   }
+    volume*times as f64 <= box_volume
 }
