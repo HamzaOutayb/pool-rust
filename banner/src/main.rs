@@ -21,9 +21,9 @@ fn main() {
 
     println!("{:?}", handler.exec_func("--remainder", &["2.0", "fd"]));
 }
-$ cargo run
-Ok("0.5")
-Ok("0")
-Err("invalid float literal")
-Err("invalid float literal")
-$
+// $ cargo run
+// Ok("0.5")
+// Ok("0")
+// Err("invalid float literal")
+// Err("invalid float literal")
+// $

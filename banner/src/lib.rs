@@ -1,19 +1,23 @@
-use std::{collections::HashMap, num::ParseFloatError};
+use std::collections::HashMap;
+use std::num::ParseFloatError;
+
+
 pub struct Flag {
     pub short_hand: String,
     pub long_hand: String,
     pub desc: String,
 }
 
-impl<'a> Flag <'a> {
-    pub fn opt_flag(name: &'a str, d: &'a str) -> Self {
-            Self {
-                short_hand: format!("-{}", &name[0..1]),
-                long_hand: format!("--{}", name),
-                desc: desc.to_string(),
-            }
+impl Flag {
+    pub fn opt_flag(name: &str, d: &str) -> Self {
+        Self {
+            short_hand: format!("-{}", &name[0..1]),
+            long_hand: format!("--{}", name),
+            desc: d.to_string(),
+        }
     }
 }
+
 
 pub type Callback = fn(&str, &str) -> Result<String, ParseFloatError>;
 
@@ -27,23 +31,25 @@ impl FlagsHandler {
     }
 
     pub fn exec_func(&self, input: &str, argv: &[&str]) -> Result<String, String> {
-        let callback = match self.get(input) {
-            Some(output),
-            None,
+        if argv.len() >= 2 {
+
         }
-        Callback(argv[0], arg1[1])
+        let callback = self.flags.get(input).ok_or_else(|| "Unknown flag".to_string())?;
+
+        callback(argv[0], argv[1]).map_err(|e| format!("Error: {}", e))
     }
 }
 
 pub fn div(a: &str, b: &str) -> Result<String, ParseFloatError> {
-    let a = arg1.parse::<i32>().unwrap_err()
-    let b = arg2.parse::<i32>().unwrap_err()
-    (a/b).to_string()
+    let c = a.parse::<i32>().unwrap();
+    let d = b.parse::<i32>().unwrap();
+    let div: f64 = c as f64 /d as f64;
+    Ok((div).to_string())
 }
 
-
-pub fn div(a: &str, b: &str) -> Result<String, ParseFloatError> {
-    let a = arg1.parse::<i32>().unwrap_err()
-    let b = arg2.parse::<i32>().unwrap_err()
-    (a%b).to_string()
+pub fn rem(a: &str, b: &str) -> Result<String, ParseFloatError> {
+    let c = a.parse::<i32>().unwrap();
+    let d = b.parse::<i32>().unwrap();
+    let rim: f64 = c as f64 %d as f64;
+    Ok((rim).to_string())
 }
