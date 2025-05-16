@@ -1,7 +1,6 @@
 use std::collections::HashMap;
 use std::num::ParseFloatError;
 
-
 pub struct Flag {
     pub short_hand: String,
     pub long_hand: String,
@@ -31,25 +30,21 @@ impl FlagsHandler {
     }
 
     pub fn exec_func(&self, input: &str, argv: &[&str]) -> Result<String, String> {
-        if argv.len() >= 2 {
-
-        }
-        let callback = self.flags.get(input).ok_or_else(|| "Unknown flag".to_string())?;
-
-        callback(argv[0], argv[1]).map_err(|e| format!("Error: {}", e))
+            let callback = self.flags.get(input).ok_or_else(|| "Unknown flag".to_string())?;
+            callback(argv[0], argv[1]).map_err(|e| format!("Error: {}", e))            
     }
 }
 
 pub fn div(a: &str, b: &str) -> Result<String, ParseFloatError> {
-    let c = a.parse::<i32>().unwrap();
-    let d = b.parse::<i32>().unwrap();
+    let c = a.parse::<f64>()?;
+    let d = b.parse::<f64>()?;
     let div: f64 = c as f64 /d as f64;
     Ok((div).to_string())
 }
 
 pub fn rem(a: &str, b: &str) -> Result<String, ParseFloatError> {
-    let c = a.parse::<i32>().unwrap();
-    let d = b.parse::<i32>().unwrap();
+    let c = a.parse::<f64>()?;
+    let d = b.parse::<f64>()?;
     let rim: f64 = c as f64 %d as f64;
     Ok((rim).to_string())
 }
