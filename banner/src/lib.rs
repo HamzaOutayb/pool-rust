@@ -27,12 +27,22 @@ pub struct FlagsHandler {
 impl FlagsHandler {
     pub fn add_flag(&mut self, flag: Flag, func: Callback) {
         self.flags.insert(flag.short_hand.clone(), func);
+        self.flags.insert(flag.long_hand.clone(), func);
     }
 
     pub fn exec_func(&self, input: &str, argv: &[&str]) -> Result<String, String> {
-            let callback = self.flags.get(input).ok_or_else(|| "Unknown flag".to_string())?;
-            callback(argv[0], argv[1]).map_err(|e| format!("Error: {}", e))            
+    let func = self.flags.get(input);
+    match func {
+        Some(f) => {
+            let res = f(argv[0], argv[1]);
+            match res {
+                Ok(res) => Ok(res),
+                Err(_) => Err("invalid float literal".to_string())
+            }
+        }
+        None => Err("invalid float literal".to_string())
     }
+}
 }
 
 pub fn div(a: &str, b: &str) -> Result<String, ParseFloatError> {
