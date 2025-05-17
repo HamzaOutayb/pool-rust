@@ -83,9 +83,9 @@ pub fn cut_or_raise(mall: &mut Mall) {
         for v in s.stores.values_mut() {
             for e in v.employees.values_mut() {
                 if is_over(e.working_hours) {
-                    e.salary = e.salary*1.10;
+                    round_to_two_decimal_places(e.salary = e.salary*1.10;)
                 } else {
-                    e.salary = e.salary*0.90;
+                    round_to_two_decimal_places(e.salary = e.salary*0.90;)
                 }
             }
         }
@@ -95,4 +95,8 @@ pub fn cut_or_raise(mall: &mut Mall) {
 pub fn is_over(t: (u32, u32)) -> bool {
     let duration = t.1 - t.0;
     duration >= 10
+}
+
+fn round_to_two_decimal_places(value: f64) -> f64 {
+    (value * 100.0).round() / 100.0
 }
