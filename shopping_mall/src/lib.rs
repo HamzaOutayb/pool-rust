@@ -24,27 +24,31 @@ pub fn biggest_store(mall: &Mall) -> (String, Store) {
 }
 
 pub fn highest_paid_employee(mall: &Mall) -> Vec<(&str, Employee)> {
-    let mut employee = Employee {
-        age: 0,
-        working_hours: (0, 0),
-        salary: 0.0,
-    };
+    let mut highest_paid: Vec<(&str, Employee)> = Default::default();
 
     let mut highest: f64 = 0.0;
-    let mut name = "";
     for (_,floor) in &mall.floors {
         for (_, store) in &floor.stores {
-            for (n, v) in &store.employees {
+            for (_, v) in &store.employees {
                 if v.salary > highest {
                     highest = v.salary;
-                    name = &n;
-                    employee = v.clone();
                 }
             }
         }
     }
 
-    let highest_paid = vec![(name, employee.clone())];
+        for (_,floor) in &mall.floors {
+        for (_, store) in &floor.stores {
+            for (n, v) in &store.employees {
+                if v.salary == highest {
+                    highest_paid.push((&n, v.clone()));
+                }
+            }
+        }
+    }
+
+    
+
     highest_paid
 }
 
@@ -75,13 +79,13 @@ pub fn check_for_securities(mall: &mut Mall, mut unemp: Vec<(String, Guard)>) {
 }
 
 pub fn cut_or_raise(mall: &mut Mall) {
-    for (_, s) in mall.floors.clone() {
-        for (_, v) in s.stores {
-            for (_, mut e) in v.employees {
+    for s in mall.floors.values_mut() {
+        for v in s.stores.values_mut() {
+            for e in v.employees.values_mut() {
                 if is_under(e.working_hours) {
-                    e.salary *= 0.90
-                } else {
                     e.salary *= 1.10
+                } else {
+                    e.salary *= 0.90
                 }
             }
         }
