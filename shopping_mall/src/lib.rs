@@ -1,4 +1,4 @@
-mod mall;
+pub mod mall;
 pub use mall::*;
 use std::collections::HashMap;
 
@@ -73,7 +73,7 @@ pub fn check_for_securities(mall: &mut Mall, mut unemp: Vec<(String, Guard)>) {
             mall.guards.insert(name.clone(), guard.clone());
     };
 }
-//receives a Mall. For each employee, the salary will be raised by 10% if they work for 10 hours or more, else their salary will be decreased by 10%. You can consider that guards are not employees of the mall.
+
 pub fn cut_or_raise(mall: &mut Mall) {
     for (_, s) in mall.floors.clone() {
         for (_, v) in s.stores {
