@@ -78,24 +78,17 @@ pub fn check_for_securities(mall: &mut Mall, mut unemp: Vec<(String, Guard)>) {
     };
 }
 
-pub fn cut_or_raise(mall: &mut Mall) {
-    for s in mall.floors.values_mut() {
-        for v in s.stores.values_mut() {
-            for e in v.employees.values_mut() {
-                if is_over(e.working_hours) {
-                    e.salary = round_to_two_decimal_places(e.salary*1.10);
+pub fn cut_or_raise(m: &mut Mall) {
+    for f in m.floors.values_mut() {
+        for s in f.stores.values_mut() {
+            for e in s.employees.values_mut() {
+                println!("{:?}", e.working_hours);
+                if e.working_hours.1 - e.working_hours.0 >= 10 {
+                    e.salary += (e.salary / 100 as f64) * 10 as f64
                 } else {
-                    e.salary = round_to_two_decimal_places(e.salary*0.90);
+                    e.salary -= (e.salary / 100 as f64) * 10 as f64
                 }
             }
         }
     }
-}
-
-pub fn is_over(t: (u32, u32)) -> bool {
-    let duration = t.1 - t.0;
-    duration >= 10
-}
-fn round_to_two_decimal_places(value: f64) -> f64 {
-    (value * 100.0).round() / 100.0
 }
