@@ -82,17 +82,17 @@ pub fn cut_or_raise(mall: &mut Mall) {
     for s in mall.floors.values_mut() {
         for v in s.stores.values_mut() {
             for e in v.employees.values_mut() {
-                if is_under(e.working_hours) {
-                    e.salary *= 1.10
+                if is_over(e.working_hours) {
+                    e.salary = e.salary*1.10;
                 } else {
-                    e.salary *= 0.90
+                    e.salary = e.salary*0.90;
                 }
             }
         }
     }
 }
 
-pub fn is_under(t: (u32, u32)) -> bool {
+pub fn is_over(t: (u32, u32)) -> bool {
     let duration = t.1 - t.0;
     duration >= 10
 }
