@@ -165,7 +165,7 @@ fn main() {
     // returns the number of employees
     println!("Number of employees: {}", nbr_of_employees(&mall));
 
-    // checks if it is needed to add securities
+    // // checks if it is needed to add securities
     check_for_securities(
         &mut mall,
         [
@@ -247,5 +247,5 @@ fn main() {
     // raises or cuts the salary of every employee
     cut_or_raise(&mut mall);
 
-    println!("{:#?}", mall);
+    // println!("{:#?}", mall);
 }

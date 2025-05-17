@@ -23,7 +23,7 @@ pub fn biggest_store(mall: &Mall) -> (String, Store) {
    (store_name, store)
 }
 
-pub fn highest_paid_employee(mall: &Mall) -> Vec<(String, Employee)> {
+pub fn highest_paid_employee(mall: &Mall) -> Vec<(&str, Employee)> {
     let mut employee = Employee {
         age: 0,
         working_hours: (0, 0),
@@ -31,20 +31,20 @@ pub fn highest_paid_employee(mall: &Mall) -> Vec<(String, Employee)> {
     };
 
     let mut highest: f64 = 0.0;
-    let mut name = String::new();
+    let mut name = "";
     for (_,floor) in &mall.floors {
         for (_, store) in &floor.stores {
             for (n, v) in &store.employees {
                 if v.salary > highest {
                     highest = v.salary;
-                    name = n.clone();
+                    name = &n;
                     employee = v.clone();
                 }
             }
         }
     }
 
-    let highest_paid = vec![(name.clone(), employee.clone())];
+    let highest_paid = vec![(name, employee.clone())];
     highest_paid
 }
 
