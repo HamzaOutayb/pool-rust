@@ -1,16 +1,21 @@
 pub fn rotate(input: &str, key: i8) -> String {
     let mut res: String = String::new();
-    let add: u8 = (key%26) as u8;
     for c in input.chars() {
         if c.is_ascii_alphabetic() {
             if c.is_ascii_lowercase() {
-                let ch = (c as u8)-'a' as u8
-                res.push(((ch - 'a' as u8)%26 + 'a' as u8) as char );
+                let ch = c as u8 - b'a';
+                if key < 0 {
+                    res.push((((ch as i8+ key)%26 )as u8 + b'a') as char );
+                } else {
+                    res.push(((((ch as i8+ key)%26 )%26) as u8 + b'a') as char );
+                }
             } else if c.is_ascii_uppercase() {
-                let ch = (c as u8)-'A' as u8
-                res.push(((ch - 'A' as u8)%26 + 'A' as u8) as char );
+                let ch = c as u8 - b'A';
+                res.push(((((ch as i8+ key)%26+26 )%26) as u8 + b'A') as char );
             }
+        } else {
+            res.push(c)
         }
     }
     res
-}
+ }
