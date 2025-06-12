@@ -5,7 +5,7 @@ fn main() {
     let mut trials = 1;
     loop {
         let mut input = String::new();
-       let _ = io::stdin().read_line(&mut input);
+        let _ = io::stdin().read_line(&mut input);
         if input.trim() == "The letter e" {
             println!("Number of trials: {}", trials);
             break
