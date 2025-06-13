@@ -6,8 +6,8 @@ pub fn initials(names: Vec<&str>) -> Vec<String> {
         for char in name.chars() {
             if last == ' ' {
                 sub.push(format!("{}.", char.to_ascii_uppercase()));
-                last = char;
             }
+            last = char;
         }
         res.push(sub.join(" "))
     }
