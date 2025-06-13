@@ -1,7 +1,11 @@
 use std::f64::consts::E;
 
 pub fn nbr_function(c: i32) -> (i32, f64, f64) {
-    (c, (c as f64).exp().exp(), (c as f64).abs().log(E))
+    let log: f64 = c as f64;
+    let exp: f64 = c as f64;
+    let l: f64 = log.abs().log(E);
+    let e: f64 = exp.exp();
+    return (c, e, l)
 }
 
 pub fn str_function(a: String) -> (String, String) {
