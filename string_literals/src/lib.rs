@@ -1,5 +1,5 @@
 pub fn is_empty(v: &str) -> bool {
-    v.chars().count() == 0
+    v.is_empty()
 }
 
 pub fn is_ascii(v: &str) -> bool {
@@ -15,8 +15,8 @@ pub fn split_at(v: &str, index: usize) -> (&str, &str) {
 }
 
 pub fn find(v: &str, pat: char) -> usize {
-    for (i , c) in v.chars().enumerate() {
-        if c == pat {
+    for (i, char) in v.chars().enumerate() {
+        if char == pat {
             return i
         }
     }
