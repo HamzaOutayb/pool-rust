@@ -7,7 +7,22 @@ pub fn is_ascii(v: &str) -> bool {
 }
 
 pub fn contains(v: &str, pat: &str) -> bool {
-    v.contains(pat)
+    let l = pat.len();
+    if l > v.len() {
+        return false
+    }
+    let mut i = 0;
+    while i < v.chars().count() {
+        if i+l > v.chars().count() {
+            return false
+        }
+
+        if pat == &v[i..i+l] {
+            return true
+        }
+        i+=1
+    }
+    false
 }
 
 pub fn split_at(v: &str, index: usize) -> (&str, &str) {
