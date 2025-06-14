@@ -1,36 +1,37 @@
-use std::usize;
+pub fn edit_distance(source: &str, target: &str) -> usize {
+    let m = source.len();
+    let n = target.len();
 
-fn edite(source: &str, target: &str, s_len: usize, t_len: usize) -> usize {
-    if s_len == 0 {
-        return t_len
+    let source_chars: Vec<char> = source.chars().collect();
+    let target_chars: Vec<char> = target.chars().collect();
+
+    let mut dp: Vec<Vec<usize>> = vec![vec![0; n + 1]; m + 1];
+
+    // Base cases
+    for i in 0..=m {
+        dp[i][0] = i;
     }
-    if t_len == 0 {
-        return s_len
+    for j in 0..=n {
+        dp[0][j] = j;
     }
 
-    if source.chars().nth(s_len-1) == target.chars().nth(t_len-1) {
-        return edite(source, target, s_len-1, t_len-1)
-    }
-
-    let df: usize = min(
-    [edite(source, target, s_len, t_len-1),
-         edite(source, target, s_len-1, t_len),
-         edite(source, target, s_len-1, t_len-1),]
-    );
-
-    return 1+df
-}
-
-fn min(arr: [usize; 3]) -> usize {
-    let mut min: usize = arr[1];
-    for n in arr {
-        if min > n {
-            min = n
+    for i in 1..=m {
+        for j in 1..=n {
+            if source_chars[i - 1] == target_chars[j - 1] {
+                dp[i][j] = dp[i - 1][j - 1];
+            } else {
+                dp[i][j] = 1 + min(
+                    dp[i - 1][j],     // Deletion
+                    dp[i][j - 1],     // Insertion
+                    dp[i - 1][j - 1], // replacement
+                );
+            }
         }
     }
-    min
-} 
 
-pub fn edit_distance(source: &str, target: &str) -> usize {
-    return edite(source, target, source.len(), target.len())
+    dp[m][n]
+}
+
+fn min(a: usize, b: usize, c: usize) -> usize {
+    a.min(b.min(c))
 }
