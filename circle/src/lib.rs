@@ -39,6 +39,7 @@ pub struct Point(pub f64, pub f64);
 
 impl Point {
     //-> returns the distance between two coordinates.
+    //
     pub fn distance(self, other: Self) -> f64 {
         ((self.0 - other.0).powf(2.0) + (self.1 - other.1).powf(2.0)).sqrt()
     }
