@@ -11,7 +11,7 @@ pub fn mean(list: &[i32]) -> f64 {
 pub fn median(list: &[i32]) -> i32 {
     let mut vec = list.to_vec();
     vec.sort();
-    let mid = vec.len()/2;
+    let mid = vec.len()/2
     if vec.len()%2 == 0 {
         return (vec[mid-1]+vec[mid])/2
     }
