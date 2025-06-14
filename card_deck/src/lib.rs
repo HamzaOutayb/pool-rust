@@ -31,7 +31,7 @@ impl Suit {
         1 => return Suit::Diamond,
         2 => return Suit::Spade,
         3 => return Suit::Club,
-      _=> panic!()
+        _=> panic!()
        }
     }
 
