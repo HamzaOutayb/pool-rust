@@ -1,8 +1,7 @@
 mod err;
 use std::error::Error;
 use std::fs;
-
-use crate::err::{ParseErr, ReadErr};
+pub use crate::err::*;
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct Task {
@@ -50,18 +49,3 @@ impl TodoList {
         }
     }
 }
-/*
-let parsed = json::parse(&file_content)
-.map_err(|e| Box::new(ReadErr { child_err: Some(Box::new(e)) }) as Box<dyn Error>)?;
-
-let title = parsed["title"].as_str().unwrap_or("").to_string();
-if title.is_empty() {
-return Err(Box::new(ReadErr { child_err: None }));
-}
-let items = parsed["items"]
-.members()
-.filter_map(|item| item.as_str().map(|s| s.to_string()))
-.collect();
-Ok(TodoList { title, items })
-}
- */
