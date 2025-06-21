@@ -1,7 +1,6 @@
-mod boss;
+pub mod boss;
+pub mod member;
 pub use boss::*;
-
-mod member;
 pub use member::*;
 
 use std::collections::{HashMap, HashSet};
@@ -65,13 +64,18 @@ impl Mob {
             self.members.remove(&name);
             if self.members.len() == 0 {
                 other.wealth += self.wealth;
-                 other.cities.extend(self.cities.clone());
+                self.wealth = 0;
+
+                other.cities.extend(self.cities.clone());
+                self.cities = HashSet::new()
             }
         } else {
             other.members.remove(&name2);
-            if self.members.len() == 0 {
+            if other.members.len() == 0 {
                 self.wealth += other.wealth;
-                 self.cities.extend(other.cities.clone());
+                other.wealth = 0;
+                self.cities.extend(other.cities.clone());
+                other.cities = HashSet::new()
             }
         }
     }
@@ -86,14 +90,15 @@ impl Mob {
         }
     }
 
-    pub fn conquer_city(&mut self, mobs: &[Mob], city: String) {
+    pub fn conquer_city(&mut self, mobs: &[&Mob], city: String) {
         let mut have_it = false;
         for mob in mobs {
             if mob.cities.contains(&city) {
                 have_it = true;
+                break;
             }
         }
-        if have_it {
+        if !have_it {
             self.cities.insert(city);
         }
     }
