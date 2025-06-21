@@ -97,14 +97,14 @@ pub mod mall;
 pub use mall::*;
 use std::collections::HashMap;
 
-pub fn biggest_store(mall: Mall)-> (String, Store) {
+pub fn biggest_store(mall: &Mall)-> (String, Store) {
     let mut name: String = String::new();
     let mut store = Store {
         employees: HashMap::new(),
         square_meters: 0,
     };
     let mut max = 0;
-    for (_, v) in mall.floors {
+    for (_, v) in &mall.floors {
         for (k , v) in &v.stores {
             if v.square_meters > max {
                 max = v.square_meters;
@@ -145,11 +145,11 @@ pub fn highest_paid_employee(mall: &Mall) -> Vec<(&str, Employee)> {
     highest_paid
 }
 
-pub fn nbr_of_employees(mall: Mall) -> usize {
+pub fn nbr_of_employees(mall: &Mall) -> usize {
     let guards = mall.guards.len() as usize;
     let mut nbr_employee = 0 as usize;
-    for (_,v) in mall.floors {
-        for (k, v) in v.stores {
+    for (_,v) in &mall.floors {
+        for (_, v) in &v.stores {
         nbr_employee += v.employees.len();
         }
     }
