@@ -1,5 +1,3 @@
-use convert_case::*;
-
 pub fn edit_distance(source: &str, target: &str) -> usize {
     let m = source.len();
     let n = target.len();
@@ -42,9 +40,9 @@ fn min(a: usize, b: usize, c: usize) -> usize {
 pub fn expected_variable(s1: &str, s2: &str)-> Option<String> {
     let s1 = s1.to_string().to_lowercase();
     let s2 = s2.to_string().to_lowercase();
-    if !s2.is_case(Case::Camel) && !s2.is_case(Case::Snake) {
+     if !is_snake_case(&s2) && !is_camel_case(&s2) {
         return None;
-    } else {
+    } 
         let distance = edit_distance(&s1, &s2);
         let len = s2.len().max(1);
         let calc = (100.*(1.-(distance as f64/len as f64))).round();
@@ -53,5 +51,22 @@ pub fn expected_variable(s1: &str, s2: &str)-> Option<String> {
             return Some(format!("{}%", calc))
         }
         None
+}
+fn is_snake_case(s: &str) -> bool {
+    !s.is_empty()
+        && s.chars().all(|c| c.is_ascii_lowercase() || c == '_')
+        && !s.starts_with('_')
+        && !s.ends_with('_')
+        && !s.contains("__")
+}
+
+fn is_camel_case(s: &str) -> bool {
+    let mut chars = s.chars();
+    if let Some(first) = chars.next() {
+        first.is_ascii_lowercase()
+            && !s.contains('_')
+            && s.chars().any(|c| c.is_ascii_uppercase())
+    } else {
+        false
     }
 }
