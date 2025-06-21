@@ -1,3 +1,4 @@
+use convert_case::*;
 
 pub fn edit_distance(source: &str, target: &str) -> usize {
     let m = source.len();
@@ -39,13 +40,18 @@ fn min(a: usize, b: usize, c: usize) -> usize {
 
 
 pub fn expected_variable(s1: &str, s2: &str)-> Option<String> {
-
-    let distance = edit_distance(&s1.to_string().to_lowercase(), &s2.to_string().to_lowercase());
-    let len = s2.len().max(1);
-    let calc = (100.*(1.-(distance as f64/len as f64))).round();
-
-    if calc >= 50. {
-        return Some(format!("{}%", calc))
+    let s1 = s1.to_string().to_lowercase();
+    let s2 = s2.to_string().to_lowercase();
+    if !s2.is_case(Case::Camel) && !s2.is_case(Case::Snake) {
+        return None;
+    } else {
+        let distance = edit_distance(&s1, &s2);
+        let len = s2.len().max(1);
+        let calc = (100.*(1.-(distance as f64/len as f64))).round();
+        
+        if calc > 50. {
+            return Some(format!("{}%", calc))
+        }
+        None
     }
-    None
 }
