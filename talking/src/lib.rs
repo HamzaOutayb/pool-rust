@@ -24,9 +24,10 @@
 // }
 
 pub fn talking(text: &str) -> &str {
-    if text.is_empty() {
+    if text.trim() == "" {
         return "Just say something!"
     }
+    
     let mut upper = false;
     for c in text.chars() {
         if c.is_ascii_alphabetic() && c.is_ascii_lowercase() {
