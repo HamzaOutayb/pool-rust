@@ -49,5 +49,5 @@ pub fn spell(n: u64) -> String {
     }
     res.extend(func(n%1000));
 
-    res.join(" ")
+    res.join(" ").trim().to_string()
 }
