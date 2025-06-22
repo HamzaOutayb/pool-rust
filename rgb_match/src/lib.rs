@@ -9,25 +9,27 @@ pub struct Color {
 impl Color {
     pub fn swap(mut self, first: u8, second: u8) -> Color {
         if first == self.r {
-            self.r = second
+            self.r = second;
         } else if second == self.r {
-            self.r = first
+            self.r = first;
         }
+
         if first == self.g {
-            self.g = second
+            self.g = second;
         } else if second == self.g {
-            self.g = first
+            self.g = first;
         }
         if first == self.b {
-            self.b = second
+            self.b = second;
         } else if second == self.b {
-            self.b = first
+            self.b = first;
         }
         if first == self.a {
-            self.a = second
+            self.a = second;
         } else if second == self.a {
-            self.a = first
+            self.a = first;
         }
+        
         self
     }
 }
