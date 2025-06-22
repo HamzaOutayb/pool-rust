@@ -7,7 +7,7 @@ pub fn pig_latin(text: &str) -> String {
 
     for (i, c) in text.chars().enumerate() {
         if vowels.contains(c) {
-            return text[i..].to_string() + &text[i..].to_string() + "ay"
+            return text[i..].to_string() + &text[..i].to_string() + "ay"
         }
     }
     text.to_string()
