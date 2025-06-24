@@ -17,21 +17,25 @@ impl GameSession {
     }
     pub fn read_winner(&self) -> (String, u16) {
         if self.p1.1 > self.p2.1 {
-            self.p1
+            return (self.p1.0.clone(), self.p1.1)
         } else if self.p1.1 < self.p2.1 {
-            self.p2
+            return (self.p2.0.clone(), self.p2.1)
         } else {
-            ("Same score! tied", self.p1.1)
+            ("Same score! tied".to_string(), self.p1.1)
         }
     }
 
     pub fn update_score(&mut self, user_name: String) {
-        match user_name {
-            self.p1.0 => ,
-            self.p1.1 => ,
+        if self.p1.1 + self.p2.1 < self.nb_games && self.p1.1 * 2 <= self.nb_games && self.p2.1 * 2 <= self.nb_games {
+            if self.p1.0 == user_name {
+                self.p1.1 += 1;
+            } else if self.p2.0 == user_name {
+                self.p2.1 += 1;
+            }
         }
     }
     pub fn delete(self) -> String {
-
+        let game = self;
+        format!("game deleted: id -> {}", game.id)
     }
 }
