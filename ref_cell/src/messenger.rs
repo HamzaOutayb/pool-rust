@@ -28,7 +28,7 @@ impl<'a> Tracker<'a> {
         if (percentage as u128) >= 100 {
             self.logger.error(&String::from("you are over your quota!"));
         } else if (percentage as u128 )>= 70 &&( percentage as u128) < 100 {
-            self.logger.warning(&format!("you have used up over {}% of your quota! Proceeds with precaution", percentage));
+            self.logger.warning(&format!("you have used up over {}% of your quota! Proceeds with precaution", (percentage as u128)));
         }
     }
 
