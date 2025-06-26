@@ -37,5 +37,5 @@ fn main() {
     for (k ,v) in logger.mapped_messages.into_inner() {
         println!("{:?}", (k ,v));
     }
-    println!("{:?}", logger.all_messages.into_inner());
+    println!("{:#?}", logger.all_messages.into_inner());
 }

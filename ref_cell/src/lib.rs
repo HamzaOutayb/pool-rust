@@ -24,15 +24,15 @@ impl Worker {
 impl Logger for Worker {
     fn warning(&self, msg: &str) {
         self.mapped_messages.borrow_mut().insert(String::from("Warning"), msg.to_string());
-        self.all_messages.borrow_mut().push(msg.to_string());
+        self.all_messages.borrow_mut().push(format!("Warning: {}", msg));
     }
     fn info(&self, msg: &str) {
         self.mapped_messages.borrow_mut().insert(String::from("Info"), msg.to_string());
-        self.all_messages.borrow_mut().push(msg.to_string());
+        self.all_messages.borrow_mut().push(format!("Info: {}", msg));
     }
     fn error(&self, msg: &str) {
         self.mapped_messages.borrow_mut().insert(String::from("Error"), msg.to_string());
-        self.all_messages.borrow_mut().push(msg.to_string());
+        self.all_messages.borrow_mut().push(format!("Error: {}", msg));
     }
 }
 
