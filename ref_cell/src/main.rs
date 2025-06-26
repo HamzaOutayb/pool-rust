@@ -83,6 +83,7 @@ mod tests {
         let track = Tracker::new(&l, 5);
         let _a = l.value.clone();
         track.peek(&l.value); // 40%
+        println!("{:#?}", l.ms);
         let _a1 = l.value.clone();
         let _a2 = l.value.clone();
         track.set_value(&l.value); // 80%

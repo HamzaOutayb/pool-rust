@@ -23,16 +23,19 @@ impl Worker {
 
 impl Logger for Worker {
     fn warning(&self, msg: &str) {
-        self.mapped_messages.borrow_mut().insert(String::from("Warning"), msg.to_string());
-        self.all_messages.borrow_mut().push(format!("Warning: {}", msg));
+        let s = msg.split(": ").collect::<Vec<&str>>();
+        self.mapped_messages.borrow_mut().insert(String::from(s[0]), s[1].to_string());
+        self.all_messages.borrow_mut().push(msg.to_string());
     }
     fn info(&self, msg: &str) {
-        self.mapped_messages.borrow_mut().insert(String::from("Info"), msg.to_string());
-        self.all_messages.borrow_mut().push(format!("Info: {}", msg));
+        let s = msg.split(": ").collect::<Vec<&str>>();
+        self.mapped_messages.borrow_mut().insert(String::from(s[0]), s[1].to_string());
+        self.all_messages.borrow_mut().push(msg.to_string());
     }
     fn error(&self, msg: &str) {
-        self.mapped_messages.borrow_mut().insert(String::from("Error"), msg.to_string());
-        self.all_messages.borrow_mut().push(format!("Error: {}", msg));
+        let s = msg.split(": ").collect::<Vec<&str>>();
+        self.mapped_messages.borrow_mut().insert(String::from(s[0]), s[1].to_string());
+        self.all_messages.borrow_mut().push(msg.to_string());
     }
 }
 
