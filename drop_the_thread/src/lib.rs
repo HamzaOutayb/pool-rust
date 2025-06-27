@@ -1,3 +1,4 @@
+use core::panic;
 pub use std::{
     cell::{Cell, RefCell},
     os::unix::thread,
@@ -29,16 +30,15 @@ impl Workers {
     }
 
     pub fn is_dropped(&self, id: usize) -> bool {
-             self.states.borrow_mut()[id]
+        self.states.borrow_mut()[id]
     }
 
     pub fn add_drop(&self, id: usize) {
-        if self.states.borrow_mut()[id] {
+        if !self.is_dropped(id) {
             panic!("{} is already dropped", id);
-        } else {
+        }
             self.states.borrow_mut()[id] = true;
             self.drops.set(self.drops.get()+1);
-        }
     }
 }
 
@@ -59,7 +59,6 @@ impl<'a> Thread<'a> {
     }
 
     pub fn skill(self) {
-        self.parent.drops.set(self.parent.drops.get()-1);
         self.parent.add_drop(self.pid);
     }
 }
@@ -70,6 +69,10 @@ trait Drop {
 
 impl<'a> Drop for Thread<'a> {
     fn add_drop(self) {
-        self.parent.states.borrow_mut();
+        if !self.parent.is_dropped(self.pid) {
+            self.parent.add_drop(self.pid);
+        } else {
+            panic!("{} is already dropped", self.pid);
+        }
     }
 }
