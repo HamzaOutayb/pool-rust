@@ -8,7 +8,6 @@ fn main() {
     let (id1, thread1) = worker.new_worker(String::from("command1"));
     thread.skill();
     println!("{:?}", (worker.is_dropped(id), id, &worker.drops));
-
     thread1.skill();
     println!("{:?}", (worker.is_dropped(id1), id1, &worker.drops));
 

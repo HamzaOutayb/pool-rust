@@ -18,10 +18,10 @@ impl Workers {
         }
     }
     pub fn new_worker(&self, c: String) -> (usize, Thread) {
-        self.states.borrow_mut().push(true);
+        self.states.borrow_mut().push(false);
         (
             self.states.borrow().len()-1,
-            Thread::new_thread(self.drops.get(), c, self),
+            Thread::new_thread(self.states.borrow().len()-1, c, self),
         )
     }
 
@@ -34,7 +34,8 @@ impl Workers {
     }
 
     pub fn add_drop(&self, id: usize) {
-        if !self.is_dropped(id) {
+        if self.is_dropped(id) {
+            println!("{}", id);
             panic!("{} is already dropped", id);
         }
             self.states.borrow_mut()[id] = true;
@@ -50,7 +51,7 @@ pub struct Thread<'a> {
 }
 
 impl<'a> Thread<'a> {
-    pub fn new_thread(p: usize, c: String, t: &'a Workers) -> Thread {
+    pub fn new_thread(p: usize, c: String, t: &'a Workers) -> Self {
         Thread {
             pid: p,
             cmd: c,
@@ -63,16 +64,11 @@ impl<'a> Thread<'a> {
     }
 }
 
-trait Drop {
-    fn add_drop(self);
-}
-
-impl<'a> Drop for Thread<'a> {
-    fn add_drop(self) {
+impl<'a> std::ops::Drop for Thread<'a> {
+    fn drop(&mut self) {
         if !self.parent.is_dropped(self.pid) {
             self.parent.add_drop(self.pid);
-        } else {
-            panic!("{} is already dropped", self.pid);
         }
     }
 }
+
