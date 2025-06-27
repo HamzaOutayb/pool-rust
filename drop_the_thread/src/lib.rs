@@ -17,22 +17,28 @@ impl Workers {
         }
     }
     pub fn new_worker(&self, c: String) -> (usize, Thread) {
+        self.states.borrow_mut().push(true);
         (
-            self.states.borrow().len(),
+            self.states.borrow().len()-1,
             Thread::new_thread(self.drops.get(), c, self),
         )
     }
+
     pub fn track_worker(&self) -> usize {
         self.states.borrow().len()
     }
+
     pub fn is_dropped(&self, id: usize) -> bool {
-        if self.states.borrow().len() > id {
-            return self.states.borrow_mut()[id];
-        };
-        false
+             self.states.borrow_mut()[id]
     }
+
     pub fn add_drop(&self, id: usize) {
-        self.states.borrow_mut().push(true);
+        if self.states.borrow_mut()[id] {
+            panic!("{} is already dropped", id);
+        } else {
+            self.states.borrow_mut()[id] = true;
+            self.drops.set(self.drops.get()+1);
+        }
     }
 }
 
@@ -53,9 +59,8 @@ impl<'a> Thread<'a> {
     }
 
     pub fn skill(self) {
-        if self.parent.states.borrow().len() > self.pid {
-            self.parent.states.borrow_mut()[self.pid] = false;
-        }
+        self.parent.drops.set(self.parent.drops.get()-1);
+        self.parent.add_drop(self.pid);
     }
 }
 
@@ -65,6 +70,6 @@ trait Drop {
 
 impl<'a> Drop for Thread<'a> {
     fn add_drop(self) {
-        self.parent.states.borrow_mut()[self.pid] = !self.parent.states.borrow_mut()[self.pid];
+        self.parent.states.borrow_mut();
     }
 }
