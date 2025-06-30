@@ -1,21 +1,21 @@
 #[derive(Debug, PartialEq, Eq, Clone, PartialOrd, Ord)]
 pub enum Antigen {
-	A,
-	AB,
-	B,
-	O,
+    A,
+    AB,
+    B,
+    O,
 }
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone)]
-enum RhFactor {
-	Positive,
-	Negative,
+pub enum RhFactor {
+    Positive,
+    Negative,
 }
 
-#[derive(PartialEq, Eq, PartialOrd)]
+#[derive(PartialEq, Eq, PartialOrd, Clone)]
 pub struct BloodType {
-	pub antigen: Antigen,
-	pub rh_factor: RhFactor,
+    pub antigen: Antigen,
+    pub rh_factor: RhFactor,
 }
 
 use std::cmp::{Ord, Ordering};
@@ -24,7 +24,7 @@ use std::str::FromStr;
 
 impl FromStr for Antigen {
     type Err = String;
-    fn from_str(s: &str)-> Result<Self, Self::Err> {
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
             "A" => Ok(Self::A),
             "AB" => Ok(Self::AB),
@@ -75,7 +75,7 @@ impl Ord for BloodType {
 }
 
 impl FromStr for BloodType {
-     type Err = String;
+    type Err = String;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let (antigen, rh_factor) = s.split_at(s.len() - 1);
         let Ok(antigen) = antigen.parse::<Antigen>() else {
