@@ -8,6 +8,7 @@ pub struct ThreeDVector<T> {
 use std::ops::{Add, Sub};
 
 impl<T: Add<Output = T>> Add for ThreeDVector<T> {
+        type Output = ThreeDVector<T>;
     fn add(self, rhs: Self) -> Self::Output {
         ThreeDVector {
             i: self.i + rhs.i,
