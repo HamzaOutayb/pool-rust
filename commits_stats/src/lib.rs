@@ -19,7 +19,7 @@ pub fn commits_per_week(data: &JsonValue) -> HashMap<String, u32> {
 pub fn commits_per_author(data: &JsonValue) -> HashMap<String, u32> {
     let mut res = HashMap::new();
     for member in data.members() {
-        if let Some(author_name) = member["commit"]["author"]["name"].as_str() {
+        if let Some(author_name) = member["author"]["login"].as_str() {
             *res.entry(author_name.to_string()).or_insert(0) += 1;
         }
     }
