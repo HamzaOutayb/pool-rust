@@ -40,8 +40,8 @@ impl Iterator for ThrowObject {
         let vx = self.init_velocity.x;
         let vy = self.init_velocity.y - GRAVITY * t;
 
-        self.actual_position = Object { x, y };
-        self.actual_velocity = Object { x: vx, y: vy };
+        self.actual_position = Object { x:format!("{:.2}",x).parse::<f32>().unwrap(), y:format!("{:.2}",y).parse::<f32>().unwrap() };
+        self.actual_velocity = Object { x: format!("{:.2}",vx).parse::<f32>().unwrap(), y: format!("{:.2}",vy).parse::<f32>().unwrap() };
 
         if y <= 0.0 {
             None
