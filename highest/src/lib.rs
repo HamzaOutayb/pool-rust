@@ -13,6 +13,9 @@ impl<'a> Numbers<'a> {
     }
 
     pub fn latest(&self) -> Option<u32> {
+        if self.numbers.len() == 0 {
+            return None
+        }
         Some(self.numbers[self.numbers.len()-1])
     }
 
