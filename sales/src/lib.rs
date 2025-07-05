@@ -13,26 +13,26 @@ impl Store {
 #[derive(Debug, Clone, PartialEq)]
 pub struct Cart {
     pub items: Vec<(String, f32)>,
-    pub reciept: Vec<f32>,
+    pub receipt: Vec<f32>,
 }
 
 impl Cart {
     pub fn new() -> Cart {
         Cart {
             items: Vec::new(),
-            reciept: Vec::new(),
+            receipt: Vec::new(),
         }
     }
     pub fn insert_item(&mut self, s: &Store, ele: String) {
         for product in s.products.iter() {
             if product.0 == ele {
                 self.items.push((product.0.clone(), product.1));
-                self.reciept.push(product.1);
+                self.receipt.push(product.1);
             }
         }
     }
     pub fn generate_receipt(&mut self) -> Vec<f32> {
-        let mut sorted = self.reciept.clone();
+        let mut sorted = self.receipt.clone();
         sorted.sort_by(|a, b| a.partial_cmp(b).unwrap());
 
         let total: f32 = sorted.iter().sum();
@@ -43,7 +43,7 @@ impl Cart {
         .map(|v| format!("{:.2}", v - (min*(v/total))).parse::<f32>().unwrap())
         .collect();
 
-        self.reciept = sorted.clone();
+        self.receipt = sorted.clone();
         sorted
     }
 }
