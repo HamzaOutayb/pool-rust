@@ -1,5 +1,6 @@
 // use crate::RomanDigit::*;
 
+
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub enum RomanDigit {
     Nulla,
@@ -83,24 +84,32 @@ fn value(r: RomanDigit) -> u32 {
 impl Iterator for RomanNumber {
     type Item = RomanNumber;
     fn next(&mut self) -> Option<Self::Item> {
-        let roman_n = self.0.clone();
-        let mut res: u32 = 0;
-        for i in 0..self.0.len() {
-            let s1 = value(roman_n[i]);
+    let roman_n = &self.0;
+    let mut res: u32 = 0;
+    let mut i = 0;
 
-            if i + 1 < roman_n.len() {
-                let s2 = value(roman_n[i + 1]);
+    while i < roman_n.len() {
+        let s1 = value(roman_n[i]);
 
-                if s1 >= s2 {
-                    res += s1;
-                } else {
-                    res += s2 - s1
-                }
-            } else {
+        if i + 1 < roman_n.len() {
+            let s2 = value(roman_n[i + 1]);
+            if s1 >= s2 {
                 res += s1;
+                i += 1;
+            } else {
+                res += s2 - s1;
+                i += 2;
             }
+        } else {
+            res += s1;
+            i += 1;
         }
-        *self = RomanNumber::from(res + 1);
-        return Some(RomanNumber::from(res + 1));
     }
+
+
+
+    *self = RomanNumber::from(res+1);
+
+    Some(RomanNumber::from(res+1))
+}
 }
