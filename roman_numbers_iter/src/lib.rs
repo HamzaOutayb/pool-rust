@@ -81,8 +81,8 @@ fn value(r: RomanDigit) -> u32 {
 }
 
 impl Iterator for RomanNumber {
-    type Item = Option<RomanNumber>;
-    fn next(&mut self) -> Option<Option<RomanNumber>> {
+    type Item = RomanNumber;
+    fn next(&mut self) -> Option<Self::Item> {
         let roman_n = self.0.clone();
         let mut res: u32 = 0;
         for i in 0..self.0.len() {
@@ -101,6 +101,6 @@ impl Iterator for RomanNumber {
             }
         }
         *self = RomanNumber::from(res + 1);
-        return Some(Some(RomanNumber::from(res + 1)));
+        return Some(RomanNumber::from(res + 1));
     }
 }
